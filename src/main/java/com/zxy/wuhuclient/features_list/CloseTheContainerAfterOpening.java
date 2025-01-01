@@ -21,7 +21,7 @@ public class CloseTheContainerAfterOpening {
     }
 
     private static void addPos() {
-        LinkedList<BlockPos> blockPos = ZxyUtils.siftBlock("-inventory");
+        LinkedList<BlockPos> blockPos = ZxyUtils.siftBlock(",inv");
         pos.addAll(blockPos);
     }
 

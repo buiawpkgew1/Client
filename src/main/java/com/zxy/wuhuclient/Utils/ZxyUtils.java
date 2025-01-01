@@ -30,6 +30,7 @@ import net.minecraft.text.MutableText;
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
 
+import static com.zxy.wuhuclient.Utils.BlockFilters.equalsBlockName;
 import static com.zxy.wuhuclient.Utils.ZxyUtils.TempData.max;
 import static com.zxy.wuhuclient.Utils.ZxyUtils.TempData.min;
 import static com.zxy.wuhuclient.WuHuClientMod.client;
@@ -131,26 +132,8 @@ public class ZxyUtils {
                         if (client.world != null) {
                             state = client.world.getBlockState(pos);
                         }
-                        Block block = state.getBlock();
-                        String string = Registries.BLOCK.getId(block).toString();
 
-                        if (blockName.length() > 2) {
-                            String fix = null;
-                            String[] split = blockName.split("-");
-                            fix = split[split.length-1];
-                            if ("a".equals(fix)) {
-                                String substring = blockName.substring(0, blockName.length() - 2);
-                                if (substring.equals(string)) {
-                                    blocks.add(pos);
-                                }
-                                continue;
-                            }else if ("inventory".equals(fix) && InventoryUtils.isInventory(pos)){
-                                blocks.add(pos);
-                            }else if("all".equals(fix)){
-                                blocks.add(pos);
-                            }
-                        }
-                        if (string.contains(blockName)) {
+                        if (state != null && equalsBlockName(blockName, state, pos)) {
                             blocks.add(pos);
                         }
                     }
@@ -177,6 +160,7 @@ public class ZxyUtils {
             searchBlockIng = true;
             LinkedHashSet<BlockPos> blockPos = new LinkedHashSet<>();
             List<String> strings = SEARCH_BLOCK_LIST.getStrings();
+
             for (String blockName : strings) {
                 LinkedList<BlockPos> blockPosLinkedList = siftBlock(blockName);
                 List<BlockPos> list = blockPosLinkedList.stream().distinct().toList();

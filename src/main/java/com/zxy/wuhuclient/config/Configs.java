@@ -34,7 +34,7 @@ public class Configs implements IConfigHandler {
             "修补完成后或一段时间未获得经验后放回原位。如果经验不是持续获得 可能不稳定");
     public static final ConfigHotkey SEARCH_BLOCK = new ConfigHotkey( "搜索选取内指定方块", "","按下后将选区内列表中的方块高亮，再次按下取消高亮");
     public static final ConfigBoolean SEARCH_BLOCK_LIMIT = new ConfigBoolean( "搜索方块渲染层数限制", false,"是否受到投影渲染层数限制影响");
-    public static final ConfigStringList SEARCH_BLOCK_LIST = new ConfigStringList( "搜索方块列表",ImmutableList.of() ,"输入 \"-a\" 后缀会被识别为全称");
+    public static final ConfigStringList SEARCH_BLOCK_LIST = new ConfigStringList( "搜索方块列表",ImmutableList.of() ,"");
     public static final ConfigBooleanHotkeyed LITEMATICA_HELPER = new ConfigBooleanHotkeyed("投影材料助手",false,"","开启后将允许选区选中投影方块，会根据框选的投影更新材料列表。打开容器自动拿取对应材料\n安装箱子追踪后可高亮箱子\n"+"取物品功能来自 Fallen_Breath的TweakerMore");
     public static final ConfigBoolean LITEMATICA_HELPER_TIPS = new ConfigBoolean("投影材料助手提示",true,"","交互容器后的存放提示");
     public static final ConfigHotkey REFRESH_MATERIALS = new ConfigHotkey("刷新材料列表","","相当于点击了材料列表的刷新按钮");
