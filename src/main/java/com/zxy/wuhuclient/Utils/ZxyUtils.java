@@ -26,6 +26,7 @@ import net.minecraft.text.Text;
 
 //#if MC > 11802
 import net.minecraft.text.MutableText;
+import net.minecraft.util.math.Vec3d;
 //#else
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
@@ -75,34 +76,9 @@ public class ZxyUtils {
         }
 
         static boolean comparePos(Box box, BlockPos pos) {
-            int x = 0, y = 0, z = 0;
-            if (pos != null) {
-                x = pos.getX();
-                y = pos.getY();
-                z = pos.getZ();
-            }
-            if (box == null) return false;
-            BlockPos kpos1 = box.getPos1();
-            BlockPos kpos2 = box.getPos2();
-            min = new int[]{
-                    kpos1.getX() < kpos2.getX() ? kpos1.getX() : kpos2.getX(),
-                    kpos1.getY() < kpos2.getY() ? kpos1.getY() : kpos2.getY(),
-                    kpos1.getZ() < kpos2.getZ() ? kpos1.getZ() : kpos2.getZ()
-            };
-            max = new int[]{
-                    kpos1.getX() > kpos2.getX() ? kpos1.getX() : kpos2.getX(),
-                    kpos1.getY() > kpos2.getY() ? kpos1.getY() : kpos2.getY(),
-                    kpos1.getZ() > kpos2.getZ() ? kpos1.getZ() : kpos2.getZ()
-            };
-            if (
-                    x < min[0] || x > max[0] ||
-                            y < min[1] || y > max[1] ||
-                            z < min[2] || z > max[2]
-            ) {
-                return false;
-            } else {
-                return true;
-            }
+            if (box == null || pos == null) return false;
+            MyBox myBox = new MyBox(box);
+            return myBox.contains(Vec3d.of(pos));
         }
 
         public ClientPlayerEntity player;
@@ -122,21 +98,16 @@ public class ZxyUtils {
         List<Box> box;
         if (i == null) return blocks;
         box = i.getAllSubRegionBoxes();
-        for (int index = 0; index < box.size(); index++) {
-            TempData.comparePos(box.get(index), null);
-            for (int x = min[0]; x <= max[0]; x++) {
-                for (int y = min[1]; y <= max[1]; y++) {
-                    for (int z = min[2]; z <= max[2]; z++) {
-                        BlockPos pos = new BlockPos(new BlockPos(x, y, z));
-                        BlockState state = null;
-                        if (client.world != null) {
-                            state = client.world.getBlockState(pos);
-                        }
+        for (Box value : box) {
+            MyBox myBox = new MyBox(value);
+            for (BlockPos pos : myBox) {
+                BlockState state = null;
+                if (client.world != null) {
+                    state = client.world.getBlockState(pos);
+                }
 
-                        if (state != null && equalsBlockName(blockName, state, pos)) {
-                            blocks.add(pos);
-                        }
-                    }
+                if (state != null && equalsBlockName(blockName, state, pos)) {
+                    blocks.add(pos);
                 }
             }
         }
@@ -157,7 +128,6 @@ public class ZxyUtils {
     public static boolean searchBlockIng = false;
     public synchronized static void searchBlock(){
             if(!searchBlockSwitch) return;
-            searchBlockIng = true;
             LinkedHashSet<BlockPos> blockPos = new LinkedHashSet<>();
             List<String> strings = SEARCH_BLOCK_LIST.getStrings();
 

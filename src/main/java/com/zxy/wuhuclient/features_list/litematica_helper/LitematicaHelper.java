@@ -64,7 +64,10 @@ public class LitematicaHelper {
     public static void process(ScreenHandler container) {
         ClientPlayerEntity player = client.player;
         if (player == null) return;
-        HandledScreen<?> containerScreen = (HandledScreen<?>)client.currentScreen;
+        HandledScreen<?> containerScreen;
+        if(client.currentScreen instanceof HandledScreen){
+            containerScreen = (HandledScreen<?>)client.currentScreen;
+        }else return;
         List<Slot> playerInvSlots = container.slots.stream().filter(slot -> slot.inventory instanceof PlayerInventory).collect(Collectors.toList());
         List<Slot> containerInvSlots = container.slots.stream().filter(slot -> areSlotsInSameInventory(slot, container.slots.get(0),false)).collect(Collectors.toList());
 

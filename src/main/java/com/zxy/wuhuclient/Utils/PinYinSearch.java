@@ -50,7 +50,7 @@ public class PinYinSearch {
         for (int i = 0; i < pinyin.size(); i++) {
             pys2 = new ArrayList<>();
             pys4 = new ArrayList<>();
-            for (int i1 = 0; pinyin.get(i).length > 0 && i1 < pinyin.get(i).length; i1++) {
+            for (int i1 = 0;i1 < pinyin.get(i).length && pinyin.get(i).length > 0; i1++) {
                 if(i==0) {
                     pys1.add(pinyin.get(i)[i1]);
                     pys3.add(""+ pinyin.get(i)[i1].charAt(0));
