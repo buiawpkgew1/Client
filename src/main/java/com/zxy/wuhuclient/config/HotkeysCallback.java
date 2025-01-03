@@ -1,6 +1,7 @@
 package com.zxy.wuhuclient.config;
 
 import com.zxy.wuhuclient.features_list.CloseTheContainerAfterOpening;
+import com.zxy.wuhuclient.features_list.QuickFirework;
 import com.zxy.wuhuclient.features_list.SyncInventory;
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.materials.MaterialListBase;
@@ -27,6 +28,8 @@ public class HotkeysCallback implements IHotkeyCallback {
             startSearchBlock();
         }else if(key == SYNC_INVENTORY.getKeybind()){
             SyncInventory.startOrOffSyncInventory();
+        }else if(key == QUICK_FIREWORK.getKeybind()){
+            QuickFirework.accelerated();
         }else if(key == ADD_INVENTORY.getKeybind()){
             CloseTheContainerAfterOpening.start();
         }else if(key == REFRESH_MATERIALS.getKeybind() && DataManager.getMaterialList() != null){

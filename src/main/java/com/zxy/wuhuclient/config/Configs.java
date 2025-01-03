@@ -8,6 +8,8 @@ import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
+import fi.dy.masa.malilib.hotkeys.KeyAction;
+import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import fi.dy.masa.malilib.util.JsonUtils;
 
 import java.io.File;
@@ -17,6 +19,7 @@ import java.util.List;
 import static com.zxy.wuhuclient.Utils.ZxyUtils.isLoadChestTracker;
 import static com.zxy.wuhuclient.Utils.ZxyUtils.isLoadQuiShulker;
 import static com.zxy.wuhuclient.WuHuClientMod.MOD_ID;
+import static fi.dy.masa.malilib.hotkeys.KeybindSettings.*;
 
 public class Configs implements IConfigHandler {
     public static Configs INSTANCE = new Configs();
@@ -30,8 +33,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed SYNTHESIS = new ConfigBooleanHotkeyed( "合成助手", false, "Z,C","");
     public static final ConfigHotkey SYNC_INVENTORY = new ConfigHotkey( "容器同步","","按下热键后会记录看向容器的物品。\n将投影选区内的同类型容器中的物品，同步至记录的容器。");
     public static final ConfigBooleanHotkeyed SYNC_INVENTORY_CHECK = new ConfigBooleanHotkeyed( "容器同步是否检查背包",true,"","开启时会检测背包中的物品是否满足填充条件，物品不足时不会打开容器。");
-    public static final ConfigBooleanHotkeyed AUTO_MENDING = new ConfigBooleanHotkeyed( "自动经验修补", false, "","在获取经验的时候可以将背包中带有经验修补且未满耐久的物品放到副手，"+"\n" +
-            "修补完成后或一段时间未获得经验后放回原位。如果经验不是持续获得 可能不稳定");
+    public static final ConfigBooleanHotkeyed AUTO_MENDING = new ConfigBooleanHotkeyed( "自动经验修补", false, "","在获取经验的时候可以将背包中带有经验修补且未满耐久的物品放到副手，"+"\n" + "修补完成后或一段时间未获得经验后放回原位。如果经验不是持续获得 可能不稳定");
+    public static final ConfigHotkey QUICK_FIREWORK = new ConfigHotkey( "快捷烟花", "",PRESS_ALLOWEXTRA,"在飞行状态时，按下热键会将背包内的烟花放到副手，使用烟花后再放回原位\n不会使用会爆炸的烟花");
     public static final ConfigHotkey SEARCH_BLOCK = new ConfigHotkey( "搜索选取内指定方块", "","按下后将选区内列表中的方块高亮，再次按下取消高亮");
     public static final ConfigBoolean SEARCH_BLOCK_LIMIT = new ConfigBoolean( "搜索方块渲染层数限制", false,"是否受到投影渲染层数限制影响");
     public static final ConfigStringList SEARCH_BLOCK_LIST = new ConfigStringList( "搜索方块列表",ImmutableList.of() ,"");
@@ -79,6 +82,7 @@ public class Configs implements IConfigHandler {
         list.add(LITEMATICA_HELPER_TIPS);
         list.add(REFRESH_MATERIALS);
         list.add(ADD_INVENTORY);
+        list.add(QUICK_FIREWORK);
 //        list.add(TEST);
 
         return ImmutableList.copyOf(list);
@@ -97,6 +101,7 @@ public class Configs implements IConfigHandler {
     public static final ImmutableList<ConfigHotkey> KEY_LIST = ImmutableList.of(
             WUHU_CLIENT,
             SYNC_INVENTORY,
+            QUICK_FIREWORK,
             SEARCH_BLOCK,
             ADD_INVENTORY,
             REFRESH_MATERIALS

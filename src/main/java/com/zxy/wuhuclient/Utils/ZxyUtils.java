@@ -14,7 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 
@@ -26,7 +26,7 @@ import net.minecraft.text.Text;
 
 //#if MC > 11802
 import net.minecraft.text.MutableText;
-import net.minecraft.util.math.Vec3d;
+
 //#else
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
