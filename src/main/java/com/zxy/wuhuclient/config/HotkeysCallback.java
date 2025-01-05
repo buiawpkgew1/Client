@@ -13,6 +13,7 @@ import net.minecraft.client.MinecraftClient;
 
 import static com.zxy.wuhuclient.Utils.ZxyUtils.startSearchBlock;
 import static com.zxy.wuhuclient.config.Configs.*;
+import static com.zxy.wuhuclient.features_list.QuickClickSlot.clickLastSlot;
 
 //监听按键
 public class HotkeysCallback implements IHotkeyCallback {
@@ -28,6 +29,8 @@ public class HotkeysCallback implements IHotkeyCallback {
             startSearchBlock();
         }else if(key == SYNC_INVENTORY.getKeybind()){
             SyncInventory.startOrOffSyncInventory();
+        }else if(key == TAKE_OUT_THE_LAST_ITEM.getKeybind()){
+            clickLastSlot();
         }else if(key == QUICK_FIREWORK.getKeybind()){
             QuickFirework.accelerated();
         }else if(key == ADD_INVENTORY.getKeybind()){

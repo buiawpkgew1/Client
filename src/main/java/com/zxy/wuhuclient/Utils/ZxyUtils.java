@@ -151,6 +151,9 @@ public class ZxyUtils {
             }).start();
         }
     }
+    public static Optional<ClientPlayerEntity> getPlayer(){
+        return Optional.ofNullable(client.player);
+    }
 
     public static void actionBar(String message){
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
